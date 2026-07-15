@@ -1,5 +1,6 @@
 application:
   subdomain: termix
+  oidc_redirect_path: /users/oidc/callback
   upstreams:
     - location: /
       backend: http://termix:8080/
@@ -11,7 +12,29 @@ services:
     image: docker.1ms.run/bugattiguy527/termix:2.5.0
     environment:
       - PORT=8080
-      - GUACD_HOST=guacd
+      - NODE_ENV=production
+      - DATA_DIR=/app/data
+      - ENABLE_SSL=false
+      - ENABLE_GUACAMOLE=true
+      - GUACD_URL=tcp://guacd:4822
+      - OIDC_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+      - OIDC_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+      - OIDC_ISSUER_URL=${LAZYCAT_AUTH_OIDC_ISSUER_URI}
+      - OIDC_AUTHORIZATION_URL=${LAZYCAT_AUTH_OIDC_AUTH_URI}
+      - OIDC_TOKEN_URL=${LAZYCAT_AUTH_OIDC_TOKEN_URI}
+      - OIDC_USERINFO_URL=${LAZYCAT_AUTH_OIDC_USERINFO_URI}
+      - OIDC_IDENTIFIER_PATH=sub
+      - OIDC_NAME_PATH=name
+      - OIDC_SCOPES=openid email profile groups
+      - OIDC_FORCE_HTTPS=true
+      - OIDC_ALLOW_REGISTRATION=true
+      - OIDC_ALLOWED_USERS=*
+      - OIDC_ADMIN_GROUP=ADMIN
+      - OIDC_GROUP_CLAIM=groups
+      - ALLOW_REGISTRATION={{ .U.allow_registration }}
+      - ALLOW_PASSWORD_LOGIN={{ .U.allow_password_login }}
+      - ALLOW_PASSWORD_RESET=true
+      - SALT=12
     depends_on:
       - guacd
     binds:
@@ -19,7 +42,3 @@ services:
 
   guacd:
     image: docker.1ms.run/guacamole/guacd:1.6.0
-
-usage: |
-  打开应用后完成初始账户设置，即可添加 SSH、RDP、VNC 等远程连接。
-  Termix 配置和连接数据保存在应用数据目录中。

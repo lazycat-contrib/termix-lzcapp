@@ -8,9 +8,22 @@ LPK v2 application for LazyCat.
 - Package: `community.lazycat.app.termix`
 - Termix image: `docker.1ms.run/bugattiguy527/termix:2.5.0`
 - guacd image: `docker.1ms.run/guacamole/guacd:1.6.0`
-- guacd host: `GUACD_HOST=guacd`
+- HTTP port: `8080`
+- Data directory: `DATA_DIR=/app/data`
+- guacd endpoint: `GUACD_URL=tcp://guacd:4822`
 - Persistent data: `/lzcapp/var/data` → `/app/data`
 - Minimum LazyCat OS: `1.5.0`
+
+## Authentication
+
+LazyCat OIDC is registered at `/users/oidc/callback`. Client credentials and
+provider endpoints are injected at runtime through the
+`LAZYCAT_AUTH_OIDC_*` environment variables and are never stored in Git.
+
+OIDC auto-provisioning is enabled, and membership in the LazyCat `ADMIN` group
+is synchronized to Termix admin access. The deployment wizard controls local
+registration and password login; both default to enabled. Password reset is
+enabled and password hashing rounds are locked to `SALT=12`.
 
 ## Build
 

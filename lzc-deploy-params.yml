@@ -1,0 +1,30 @@
+params:
+  - id: allow_registration
+    type: bool
+    name: "Allow Registration"
+    description: "Allow users to create local Termix accounts in addition to LazyCat OIDC login"
+    default_value: "true"
+    optional: false
+
+  - id: allow_password_login
+    type: bool
+    name: "Allow Password Login"
+    description: "Allow local username and password login in addition to LazyCat OIDC login"
+    default_value: "true"
+    optional: false
+
+locales:
+  zh:
+    allow_registration:
+      name: "允许注册"
+      description: "允许用户在懒猫 OIDC 登录之外创建 Termix 本地账户"
+    allow_password_login:
+      name: "允许密码登录"
+      description: "允许用户在懒猫 OIDC 登录之外使用本地用户名和密码登录"
+  en:
+    allow_registration:
+      name: "Allow Registration"
+      description: "Allow users to create local Termix accounts in addition to LazyCat OIDC login"
+    allow_password_login:
+      name: "Allow Password Login"
+      description: "Allow local username and password login in addition to LazyCat OIDC login"
