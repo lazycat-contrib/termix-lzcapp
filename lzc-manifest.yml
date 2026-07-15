@@ -1,0 +1,25 @@
+application:
+  subdomain: termix
+  upstreams:
+    - location: /
+      backend: http://termix:8080/
+  public_path:
+    - /
+
+services:
+  termix:
+    image: docker.1ms.run/bugattiguy527/termix:2.5.0
+    environment:
+      - PORT=8080
+      - GUACD_HOST=guacd
+    depends_on:
+      - guacd
+    binds:
+      - /lzcapp/var/data:/app/data
+
+  guacd:
+    image: docker.1ms.run/guacamole/guacd:1.6.0
+
+usage: |
+  打开应用后完成初始账户设置，即可添加 SSH、RDP、VNC 等远程连接。
+  Termix 配置和连接数据保存在应用数据目录中。
