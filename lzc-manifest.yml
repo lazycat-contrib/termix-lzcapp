@@ -8,8 +8,8 @@ application:
     - /
 services:
   termix:
-    # upstream: bugattiguy527/termix:2.5.0
-    image: docker.1ms.run/bugattiguy527/termix:2.5.0
+    # upstream: bugattiguy527/termix:2.5.1
+    image: docker.1ms.run/bugattiguy527/termix:2.5.1
     environment:
       - PORT=8080
       - NODE_ENV=production
