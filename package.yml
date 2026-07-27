@@ -1,5 +1,5 @@
 package: community.lazycat.app.termix
-version: 2.5.1
+version: 2.6.0
 name: Termix
 description: "Self-hosted SSH and remote desktop management platform"
 author: Termix-SSH
